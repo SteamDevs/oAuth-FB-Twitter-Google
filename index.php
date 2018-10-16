@@ -13,10 +13,10 @@
 </head>
 <body>
     
-    <button onclick="signFB();" >Facebook</button>
-    <button>Google</button>
-    <button>Twitter</button>
-
+    <button id="btnFB">Facebook</button>
+    <button id="btnGoogle"> Google</button>
+    <button id="btnTwitter">Twitter</button>
+    <button style="display: none" id="btnLogOut">Salir</button>
      
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
 <script>
