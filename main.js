@@ -1,12 +1,12 @@
-//Todo el objeto firebase
-//console.log(firebase)
-
 /* Validando desde VanilaJS */
 var btnFB = document.getElementById("btnFB");
 var btnGoogle = document.getElementById("btnGoogle");
 var btnTwitter = document.getElementById("btnTwitter");
-
 var btnLogOut = document.getElementById("btnLogOut");
+
+//Creando una referencia hacia la base de datos
+var ref = firebase.database().ref().child("usuario");
+var usuario = {};
 
 firebase.auth().onAuthStateChanged(function(user){
     console.log(user)
@@ -28,7 +28,16 @@ firebase.auth().onAuthStateChanged(function(user){
      //defino en que leguaje le va a salir el Popup de autenticacion
     firebase.auth().languageCode = 'es';
     firebase.auth().signInWithPopup(provider).then(function(datosUsuario){
-   console.log(datosUsuario);
+    //Renderizando la vista hacia el homepage
+    // ocultando momentaneamente window.location.href = "home.php"    
+    console.log(datosUsuario);
+    usuario = {
+        nombre   : datosUsuario.user.displayName,
+        email    : datosUsuario.user.email,
+        uid      : datosUsuario.user.uid,
+        photoURL : datosUsuario.user.photoURL        
+      }
+      agregarUsuario(usuario);
     }).catch(function(err){
     console.log(err);
     })    
@@ -41,9 +50,9 @@ firebase.auth().onAuthStateChanged(function(user){
   function mostrarLogout(){
     console.log("mostrar Logout");
     btnLogOut.style.display = "block";
-    btnFB.style.display = "block";
-    btnGoogle.style.display = "block";
-    btnTwitter.style.display = "block";
+    btnFB.style.display = "none";
+    btnGoogle.style.display = "none";
+    btnTwitter.style.display = "none";
   }
   
   function mostrarLogin(){
@@ -52,4 +61,9 @@ firebase.auth().onAuthStateChanged(function(user){
     btnFB.style.display = "block";
     btnGoogle.style.display = "block";
     btnTwitter.style.display = "block";
+  }
+
+  function agregarUsuario(usuario){
+      ref.push(usuario);
+      console.log(usuario);
   }
