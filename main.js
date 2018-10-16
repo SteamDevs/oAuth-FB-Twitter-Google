@@ -8,6 +8,8 @@ var btnLogOut = document.getElementById("btnLogOut");
 var ref = firebase.database().ref().child("usuario");
 var usuario = {};
 
+
+//Controlando el estado de la sesion
 firebase.auth().onAuthStateChanged(function(user){
     console.log(user)
     if (user) {
@@ -19,8 +21,7 @@ firebase.auth().onAuthStateChanged(function(user){
     }
   });
   
-  //Login Google
-
+  //Auth Google
   btnGoogle.addEventListener("click", function(){
     //event.preventDefault();
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -43,6 +44,25 @@ firebase.auth().onAuthStateChanged(function(user){
     })    
   });
 
+//Auth Facebook
+btnFB.addEventListener("click", function(){
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('public_profile');         //Opcional
+    firebase.auth().languageCode = 'es';            
+    firebase.auth().signInWithPopup(provider).then(function(dataFB){
+        console.log(dataFB)
+    }).catch(function(err){
+        console.err('los errores fueron' + err)
+    });
+});
+
+//Auth Twitter
+btnTwitter.addEventListener("click", function(){
+    console.log('Soy la autenticacion de twitter');
+});
+
+
+  //Salir
   btnLogOut.addEventListener("click", function(){
     firebase.auth().signOut();
   })
