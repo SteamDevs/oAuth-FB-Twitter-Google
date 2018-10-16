@@ -1,51 +1,55 @@
-var provider = new firebase.auth.FacebookAuthProvider();
-var userUID;
-var user, token;
+//Todo el objeto firebase
+//console.log(firebase)
 
+/* Validando desde VanilaJS */
+var btnFB = document.getElementById("btnFB");
+var btnGoogle = document.getElementById("btnGoogle");
+var btnTwitter = document.getElementById("btnTwitter");
 
-function signFB(){
+var btnLogOut = document.getElementById("btnLogOut");
 
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-   
-        //window.location.href = "http://stackoverflow.com";
-    }).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-      
-        console.log(email);
-        console.log(credential);   
-        window.location.href = "home.php"; 
-        mostrarDatos();
-        // ...
-      });
-}
+firebase.auth().onAuthStateChanged(function(user){
+    console.log(user)
+    if (user) {
+      console.log("Tienes una sesion activa");
+      mostrarLogout()      
+    }else{
+      console.log("No se detecta ninguna sesion");
+      mostrarLogin()
+    }
+  });
+  
+  //Login Google
 
-function logOut(){
-    firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-        console.log('te has salido xdxd');
-        window.location.href = "index.php"
-      }).catch(function(error) {
-        // An error happened.
-      });
-}
+  btnGoogle.addEventListener("click", function(){
+    //event.preventDefault();
+    var provider = new firebase.auth.GoogleAuthProvider();
+     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+     //defino en que leguaje le va a salir el Popup de autenticacion
+    firebase.auth().languageCode = 'es';
+    firebase.auth().signInWithPopup(provider).then(function(datosUsuario){
+   console.log(datosUsuario);
+    }).catch(function(err){
+    console.log(err);
+    })    
+  });
 
+  btnLogOut.addEventListener("click", function(){
+    firebase.auth().signOut();
+  })
 
-
-function mostrarDatos(){
-    $( document ).ready(function() {
-    $("#most").show();
-    $("#mostNick").html("Tu Usuario es: " +  user);
-    $("#mostEmail").html("Tu token es: " + token);
-     
-});
-} 
+  function mostrarLogout(){
+    console.log("mostrar Logout");
+    btnLogOut.style.display = "block";
+    btnFB.style.display = "block";
+    btnGoogle.style.display = "block";
+    btnTwitter.style.display = "block";
+  }
+  
+  function mostrarLogin(){
+    console.log("mostrar login");
+    btnLogOut.style.display = "none";
+    btnFB.style.display = "block";
+    btnGoogle.style.display = "block";
+    btnTwitter.style.display = "block";
+  }
