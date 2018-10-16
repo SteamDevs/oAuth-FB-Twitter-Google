@@ -17,17 +17,19 @@
     <button id="btnGoogle"> Google</button>
     <button id="btnTwitter">Twitter</button>
     <button style="display: none" id="btnLogOut">Salir</button>
-     
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script>     
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyBJyO2NILFwsEhCe48wj7seAK12ZqZaecg",
-    authDomain: "jschat-d63a4.firebaseapp.com",
-    databaseURL: "https://jschat-d63a4.firebaseio.com",
-    projectId: "jschat-d63a4",
-    storageBucket: "jschat-d63a4.appspot.com",
-    messagingSenderId: "350703735235"
+    apiKey: "AIzaSyBnfFNaXvNkvYdo240t4aeFYvMqlnNFJdw",
+    authDomain: "twery-4f64e.firebaseapp.com",
+    databaseURL: "https://twery-4f64e.firebaseio.com",
+    projectId: "twery-4f64e",
+    storageBucket: "twery-4f64e.appspot.com",
+    messagingSenderId: "552752572805"
   };
   firebase.initializeApp(config);
 </script>
