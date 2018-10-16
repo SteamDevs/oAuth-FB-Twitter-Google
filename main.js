@@ -52,7 +52,7 @@ btnFB.addEventListener("click", function(){
     firebase.auth().signInWithPopup(provider).then(function(dataFB){
         console.log(dataFB)
     }).catch(function(err){
-        console.err('los errores fueron' + err)
+        console.log('los errores fueron' + err)
     });
 });
 
