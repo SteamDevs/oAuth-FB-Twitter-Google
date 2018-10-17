@@ -113,3 +113,5 @@ btnTwitter.addEventListener("click", function(){
     usemail.innerHTML = email;
     imgPerfil.innerHTML = img;
 }
+
+//https://stackoverflow.com/questions/22568665/assign-img-src-dynamically
