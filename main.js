@@ -38,7 +38,7 @@ firebase.auth().onAuthStateChanged(function(user){
         uid      : datosUsuario.user.uid,
         photoURL : datosUsuario.user.photoURL        
       }
-      agregarUsuario(usuario);
+      agregarUsuario(usuario, usuario.uid);
     }).catch(function(err){
     console.log(err);
     })    
@@ -83,7 +83,7 @@ btnTwitter.addEventListener("click", function(){
     btnTwitter.style.display = "block";
   }
 
-  function agregarUsuario(usuario){
-      ref.push(usuario);
+  function agregarUsuario(usuario, uid){
+      ref.child(uid).update(usuario);
       console.log(usuario);
   }
