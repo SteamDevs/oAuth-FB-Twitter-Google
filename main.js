@@ -8,16 +8,24 @@ var btnLogOut = document.getElementById("btnLogOut");
 var ref = firebase.database().ref().child("usuario");
 var usuario = {};
 
+//Cargando la informacion hacia la base de datos
+var nickPerfil = document.getElementById("nickPerfil"); 
+var uidPerfil = document.getElementById("uidPerfil");
+var email = document.getElementById("email");
+var imgPerfil = document.getElementById("imgPerfil")
+//var imgPerfil = document.getElementById("imgPerfil").src = 'https://lh5.googleusercontent.com/-ymYVK4Gd32Y/AAAAAAAAAAI/AAAAAAAAAAA/ABtNlbChCo2ZC4zoc4mqhCQpDDL56xykxg/mo/photo.jpg'; //Imagen demo
 
 //Controlando el estado de la sesion
 firebase.auth().onAuthStateChanged(function(user){
     console.log(user)
     if (user) {
       console.log("Tienes una sesion activa");
+      getDataDB(user.uid);
       mostrarLogout()      
     }else{
+      //window.location.href = "home.php";
       console.log("No se detecta ninguna sesion");
-      mostrarLogin()
+      mostrarLogin();
     }
   });
   
@@ -39,6 +47,7 @@ firebase.auth().onAuthStateChanged(function(user){
         photoURL : datosUsuario.user.photoURL        
       }
       agregarUsuario(usuario, usuario.uid);
+      window.location.href = "home.php";
     }).catch(function(err){
     console.log(err);
     })    
@@ -87,3 +96,20 @@ btnTwitter.addEventListener("click", function(){
       ref.child(uid).update(usuario);
       console.log(usuario);
   }
+
+
+  //Funciones respectivas del homePage
+
+  function getDataDB(uid){
+    ref.child(uid).on("value", function(data){
+      console.log(data.val())
+      setDataHTML(data.val().nombre, data.val().uid, data.val().email, data.val().img);
+    })
+  }
+
+  function setDataHTML(nombre, uid, email, img ){
+    nickPerfil.innerHTML = nombre;
+    uidPerfil.innerHTML = uid;
+    usemail.innerHTML = email;
+    imgPerfil.innerHTML = img;
+}

@@ -12,6 +12,12 @@
     <title>Document</title>
 </head>
 <body>
+<h1 id="nickPerfil" >Bienvenido!!: </h1>
+<h1 id="uidPerfil"></h1>
+<h1 id="usemail"></h1>
+<img width="80px" height="80px" id="imgPerfil" src="" alt="imagen_perfil">
+
+ <button style="display: none" id="btnLogOut">Salir</button>
   
 <script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
 <script>
